@@ -1,21 +1,35 @@
 import numpy as np
-import torch
-from sklearn.utils import resample
+from imblearn.over_sampling import SMOTE, RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 
 class ImbalanceHandler:
     def __init__(self):
         pass
-    def balance_data(self, X_train, y_train):
-        # Unimos para remuestrear   
-        train_data_np = np.hstack((X_train, y_train.reshape(-1, 1)))
-        majority = train_data_np[train_data_np[:, -1] == 0]
-        minority = train_data_np[train_data_np[:, -1] == 1]
 
-        # Upsample minoría
-        minority_upsampled = resample(minority, replace=True, n_samples=len(majority), random_state=42)
-        upsampled_data = np.vstack((majority, minority_upsampled))
+    def upsample_data(self, X_train, y_train):
+        """
+        Aplica Random Over Sampling.
+        Devuelve arrays de Numpy compatibles con sklearn.
+        """
+        ros = RandomOverSampler(random_state=42)
+        X_res, y_res = ros.fit_resample(X_train, y_train)
+        return X_res, y_res
+    
+    def downsample_data(self, X_train, y_train):
+        """
+        Aplica Random Under Sampling.
+        Devuelve arrays de Numpy compatibles con sklearn.
+        """
+        rus = RandomUnderSampler(random_state=42)
+        X_res, y_res = rus.fit_resample(X_train, y_train)
+        return X_res, y_res
 
-        # Nuevos tensores de entrenamiento balanceados
-        X_train_res = torch.tensor(upsampled_data[:, :-1], dtype=torch.float32)
-        y_train_res = torch.tensor(upsampled_data[:, -1], dtype=torch.float32).unsqueeze(1)
-        return X_train_res, y_train_res
+    def smote_data(self, X_train, y_train, k_neighbors=5):
+        """
+        Aplica SMOTE.
+        Devuelve arrays de Numpy compatibles con sklearn.
+        """
+        # SMOTE maneja automáticamente si k_neighbors > n_samples_minority
+        smote = SMOTE(k_neighbors=k_neighbors, random_state=42)
+        X_res, y_res = smote.fit_resample(X_train, y_train)
+        return X_res, y_res
