@@ -105,6 +105,10 @@ idna==3.11
     #   jsonschema
     #   requests
 imbalanced-learn==0.14.0
+    # via
+    #   apa-final
+    #   imblearn
+imblearn==0.0
     # via apa-final
 ipykernel==7.1.0
     # via
@@ -227,9 +231,11 @@ numpy==2.2.6 ; python_full_version < '3.11'
     #   imbalanced-learn
     #   matplotlib
     #   pandas
+    #   patsy
     #   scikit-learn
     #   scipy
     #   seaborn
+    #   statsmodels
     #   torchvision
     #   transformers
     #   yellowbrick
@@ -240,9 +246,11 @@ numpy==2.3.5 ; python_full_version >= '3.11'
     #   imbalanced-learn
     #   matplotlib
     #   pandas
+    #   patsy
     #   scikit-learn
     #   scipy
     #   seaborn
+    #   statsmodels
     #   torchvision
     #   transformers
     #   yellowbrick
@@ -297,13 +305,18 @@ packaging==25.0
     #   jupyterlab-server
     #   matplotlib
     #   nbconvert
+    #   statsmodels
     #   transformers
 pandas==2.3.3
-    # via seaborn
+    # via
+    #   seaborn
+    #   statsmodels
 pandocfilters==1.5.1
     # via nbconvert
 parso==0.8.5
     # via jedi
+patsy==1.0.2
+    # via statsmodels
 pexpect==4.9.0 ; sys_platform != 'emscripten' and sys_platform != 'win32'
     # via ipython
 pillow==12.0.0
@@ -399,12 +412,14 @@ scipy==1.15.3 ; python_full_version < '3.11'
     #   imbalanced-learn
     #   scikit-learn
     #   sentence-transformers
+    #   statsmodels
     #   yellowbrick
 scipy==1.16.3 ; python_full_version >= '3.11'
     # via
     #   imbalanced-learn
     #   scikit-learn
     #   sentence-transformers
+    #   statsmodels
     #   yellowbrick
 seaborn==0.13.2
     # via apa-final
@@ -424,6 +439,8 @@ soupsieve==2.8.1
     # via beautifulsoup4
 stack-data==0.6.3
     # via ipython
+statsmodels==0.14.6
+    # via apa-final
 sympy==1.14.0
     # via torch
 terminado==0.18.1
